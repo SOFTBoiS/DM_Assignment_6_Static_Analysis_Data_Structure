@@ -9,32 +9,32 @@ namespace DM_Assignment_6a_Static_Analysis_Data_Structure
 {
     class State
     {
-        IDictionary<string, SetTheory.ISet<int>> state;
+        public IDictionary<string, SetTheory.ISet<long>> state;
 
-        public State(IDictionary<string, SetTheory.ISet<int>> state)
+        public State(IDictionary<string, SetTheory.ISet<long>> state)
         {
             this.state = state;
         }
 
-        void AddVariable(string name, SetTheory.ISet<int> value)
+        public void AddVariable(string name, SetTheory.ISet<long> value)
         {
             this.state.Add(name, value);
         }
 
         
 
-        int CompareTo(IDictionary<string, SetTheory.ISet<int>> other)
+        public int CompareTo(IDictionary<string, SetTheory.ISet<long>> other)
         {
 
-            foreach(KeyValuePair<string, SetTheory.ISet<int>> variable in this.state)
+            foreach(KeyValuePair<string, SetTheory.ISet<long>> variable in this.state)
             {
-                var compareRes = variable.Value.CompareTo(other[variable.Key]);
+                var compareRes = variable.Value.CompareTo(other[variable.Key]!);
                 switch (compareRes)
                 {
                     case -2:
                         return -2;
                     case 1:
-                        return 1;
+                        return -2;
                     case 2:
                         return 2;
                 }
@@ -44,22 +44,22 @@ namespace DM_Assignment_6a_Static_Analysis_Data_Structure
             return -1;
         }
 
-        IDictionary<string, SetTheory.ISet<int>> Minimum(IDictionary<string, SetTheory.ISet<int>> other)
+        public IDictionary<string, SetTheory.ISet<long>> Minimum(IDictionary<string, SetTheory.ISet<long>> other)
         {
-            var minState = new Dictionary<string, SetTheory.ISet<int>>();
+            var minState = new Dictionary<string, SetTheory.ISet<long>>();
 
-            foreach (KeyValuePair<string, SetTheory.ISet<int>> variable in this.state)
+            foreach (KeyValuePair<string, SetTheory.ISet<long>> variable in this.state)
             {
                 minState.Add(variable.Key, variable.Value.Intersection(other[variable.Key]));
             }
             return minState;
         }
 
-        IDictionary<string, SetTheory.ISet<int>> Maximum(IDictionary<string, SetTheory.ISet<int>> other)
+        public IDictionary<string, SetTheory.ISet<long>> Maximum(IDictionary<string, SetTheory.ISet<long>> other)
         {
-            var maxState = new Dictionary<string, SetTheory.ISet<int>>();
+            var maxState = new Dictionary<string, SetTheory.ISet<long>>();
 
-            foreach (KeyValuePair<string, SetTheory.ISet<int>> variable in other)
+            foreach (KeyValuePair<string, SetTheory.ISet<long>> variable in other)
             {
                 maxState.Add(variable.Key, variable.Value.Union(this.state[variable.Key]));
             }
