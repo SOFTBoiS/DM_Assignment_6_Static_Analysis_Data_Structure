@@ -16,34 +16,54 @@ namespace DM_Assignment_6a_Static_Analysis_Data_Structure
             this.state = state;
         }
 
+        void AddVariable(string name, SetTheory.ISet<int> value)
+        {
+            this.state.Add(name, value);
+        }
+
+        
+
         int CompareTo(IDictionary<string, SetTheory.ISet<int>> other)
         {
-            //Get random kvpair from dictionary, to find an initial compareTo value
-            var randomElement = this.state.ElementAt(0);
-
-            var initCompareRes = randomElement.Value.CompareTo(other[randomElement.Key]);
-
-
 
             foreach(KeyValuePair<string, SetTheory.ISet<int>> variable in this.state)
             {
                 var compareRes = variable.Value.CompareTo(other[variable.Key]);
-                if (compareRes == 2) return 2;
-                if (compareRes == -2) return -2;
-                if(compareRes != initCompareRes) return -2;
+                switch (compareRes)
+                {
+                    case -2:
+                        return -2;
+                    case 1:
+                        return 1;
+                    case 2:
+                        return 2;
+                }
+                    
             }
 
-            return initCompareRes;
+            return -1;
         }
 
-        IDictionary<string, SetTheory.ISet<int>> Minimum()
+        IDictionary<string, SetTheory.ISet<int>> Minimum(IDictionary<string, SetTheory.ISet<int>> other)
         {
-            throw new NotImplementedException();
+            var minState = new Dictionary<string, SetTheory.ISet<int>>();
+
+            foreach (KeyValuePair<string, SetTheory.ISet<int>> variable in this.state)
+            {
+                minState.Add(variable.Key, variable.Value.Intersection(other[variable.Key]));
+            }
+            return minState;
         }
 
-        IDictionary<string, SetTheory.ISet<int>> Max()
+        IDictionary<string, SetTheory.ISet<int>> Maximum(IDictionary<string, SetTheory.ISet<int>> other)
         {
-            throw new NotImplementedException();
+            var maxState = new Dictionary<string, SetTheory.ISet<int>>();
+
+            foreach (KeyValuePair<string, SetTheory.ISet<int>> variable in other)
+            {
+                maxState.Add(variable.Key, variable.Value.Union(this.state[variable.Key]));
+            }
+            return maxState;
         }
     }
 }
