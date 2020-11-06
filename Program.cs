@@ -9,9 +9,9 @@ namespace DM_Assignment_6a_Static_Analysis_Data_Structure
         {
             var stateDict1 = new Dictionary<string, SetTheory.ISet<long>>
             {
-                ["a"] = new SetTheory.HashedSet(new long[] {1}),
-                ["b"] = new SetTheory.HashedSet(new long[] {1,2,3}),
-                ["c"] = new SetTheory.HashedSet(new long[] {3}),
+                ["a"] = new SetTheory.HashedSet(new long[] { 1 }),
+                ["b"] = new SetTheory.HashedSet(new long[] { 1, 2, 3 }),
+                ["c"] = new SetTheory.HashedSet(new long[] { 3 }),
             };
 
             var stateDict2 = new Dictionary<string, SetTheory.ISet<long>>
@@ -30,6 +30,7 @@ namespace DM_Assignment_6a_Static_Analysis_Data_Structure
 
             var res2 = postState.CompareTo(preState.state);
             Console.WriteLine($"res2 {res2}");
+
         }
     }
 }
